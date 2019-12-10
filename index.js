@@ -1,28 +1,31 @@
-import http from 'http';
 import dotenv from 'dotenv';
+import express from 'express';
 import greeting from './greeting';
 
-dotenv.config()
-const port = process.env.PORT
+dotenv.config();
 
-// Configure our HTTP server to respond with Hello World to all requests.
+const app = express();
 
-const server = http.createServer((req, res) => {
-    let lang = req.headers['accept-language'];
-    const defaultLang='en';
-    if (!greeting[lang]) lang=defaultLang;
-    const response={
-      lang: lang,
-      message: greeting[lang],
-    };
-  
-    res.writeHead(200, {'Content-Type': 'text/plain',
-                        'Content-Language': response.lang});
-    res.end(response.message);
-  });
-  
+const port = process.env.PORT;
 
-server.listen(port);
+app.use(express.static('public'));
 
-// Put a friendly message on the terminal
-console.log(`Server running at ${port}`);
+// add route for /greeting
+app.get('/greeting', (req, res)=>{
+  let lang = req.headers['accept-language'];
+  const defaultLang='en';
+  if (!greeting[lang]) lang=defaultLang;
+  const response={
+    lang: lang,
+    message: greeting[lang],
+  };
+
+  res.writeHead(200, {'Content-Type': 'text/plain',
+                      'Content-Language': response.lang});
+  res.end(response.message);
+});
+
+
+app.listen(port, () => {
+  console.info(`Server running at ${port}`);
+});
