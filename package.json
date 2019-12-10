@@ -4,7 +4,8 @@
   "description": "server for socweb",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon --exec babel-node index.js"
   },
   "author": "austinmartinh",
   "license": "ISC",
@@ -12,5 +13,8 @@
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.7.0",
     "nodemon": "^2.0.1"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0"
   }
 }
