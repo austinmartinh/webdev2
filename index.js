@@ -1,20 +1,20 @@
 import dotenv from 'dotenv';
 import express from 'express';
-import contactsRouter from './api/contacts';
+import postsRouter from '../asnPart2/api/posts';
 import bodyParser from 'body-parser';
+import './db'
 
 dotenv.config();
 
 const app = express();
 
+const port = process.env.PORT;
+
+//configure body-parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 
-const port = process.env.PORT;
-
-app.use(express.static('public'));
-
-app.use('/api/contacts', contactsRouter);
+app.use('/api/posts', postsRouter);
 app.use(express.static('public'));
 
 app.listen(port, () => {
