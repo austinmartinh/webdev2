@@ -63,14 +63,13 @@ router.delete('/:id', asyncHandler(async (req,res) => {
 
 // upvote a post
 router.post('/:id/upvote', asyncHandler(async(req,res) =>{
-
+ 
   const postToUpvote = await Posts.findById(req.params.id);
   if(!postToUpvote) return res.send(404);
   postToUpvote.upvotes +=1;
-  postToUpvote.save();
- 
+  await postToUpvote.save();
   if(!postToUpvote) return res.sendStatus(404);
-  return res.json(200,postToUpvote);
+  return res.status(201).send({postToUpvote});
 
 }))
 
